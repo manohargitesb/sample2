@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="93efc646-dd82-46f5-80b3-430265f65012" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="c5549a23-3aeb-4fa1-a06a-fadf52694514" >
+		<file:connection workingDir="C:\mule_ws\file-4\src\main\resources\input" />
+	</file:config>
+	<flow name="file-4Flow" doc:id="5aaf8b3e-9893-4268-987b-2e0b1f934606" >
+		<http:listener doc:name="Listener" doc:id="995719dd-f415-431a-80fb-849194f6240e" config-ref="HTTP_Listener_config" path="/move"/>
+		<file:move doc:name="Move" doc:id="a5f4dabe-6512-4087-8313-00251bb523a1" sourcePath="C:\mule_ws\file-4\src\main\resources\input" targetPath="C:\mule_ws\file-4\src\main\resources\output" config-ref="File_Config"/>
+		<logger level="INFO" doc:name="Logger" doc:id="90471e0b-d732-4c76-b57d-9db35678aad4" message='#["copy files"]'/>
+	</flow>
+</mule>
